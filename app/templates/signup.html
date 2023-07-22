@@ -29,14 +29,13 @@
           </ul>
         </div>
       </nav>
-      <!--Navbar ends-->
-    <h1>SignUp</h1>
-    
+      <!--Navbar ends-->    
     <div class="">
         <div class="alert-success">
             <h2> Create Account </h2>
         </div>
-        <div class="p-4 mx-auto">
+        <br>
+        <div class="col-lg-4 mx-auto p-4">
             <form method="post" action="/signup/"> 
                 {% csrf_token %}
                 {{ form.as_p }}

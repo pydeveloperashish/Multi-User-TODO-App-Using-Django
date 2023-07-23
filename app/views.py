@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from app.forms import TODOForm   
 from .models import TODO
+from django.contrib.auth.decorators import login_required
     
 # Create your views here.
+@login_required(login_url = 'login')
 def home(request):
-    form = TODOForm()
-    # Show the submitted todos. Fetch from the database.
-    todos = TODO.objects.all()
-    return render(request, 'index.html', 
-                  context = {"form" : form, "todos" : todos})
+    if request.user.is_authenticated:
+        user = request.user
+        form = TODOForm()
+        # Show the submitted todos. Fetch from the database.
+        todos = TODO.objects.filter(user = user)
+        return render(request, 'index.html', 
+                      context = {"form" : form, "todos" : todos})
 
 
 def loginUser(request):
@@ -57,6 +61,7 @@ def signup(request):
     return render(request, 'signup.html', context = context)
 
 
+@login_required(login_url = 'login')
 def add_todo(request):
     if request.user.is_authenticated:
         user = request.user
@@ -73,3 +78,8 @@ def add_todo(request):
         else:
             return render(request, 'index.html', 
                     context = {"form" : form})
+            
+            
+def logoutUser(request):
+    logout(request)
+    return redirect('login')

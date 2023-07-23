@@ -4,8 +4,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from app.forms import TODOForm   
 from .models import TODO
+from django.contrib.auth.decorators import login_required
     
 # Create your views here.
+@login_required(login_url = 'login')
 def home(request):
     if request.user.is_authenticated:
         user = request.user
@@ -59,6 +61,7 @@ def signup(request):
     return render(request, 'signup.html', context = context)
 
 
+@login_required(login_url = 'login')
 def add_todo(request):
     if request.user.is_authenticated:
         user = request.user

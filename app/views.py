@@ -13,7 +13,7 @@ def home(request):
         user = request.user
         form = TODOForm()
         # Show the submitted todos. Fetch from the database.
-        todos = TODO.objects.filter(user = user)
+        todos = TODO.objects.filter(user = user).order_by('priority')
         return render(request, 'index.html', 
                       context = {"form" : form, "todos" : todos})
 
@@ -83,3 +83,10 @@ def add_todo(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+
+def delete_todo(request, id):
+    print(id)
+    TODO.objects.get(pk = id).delete()
+    return redirect('home')
+    

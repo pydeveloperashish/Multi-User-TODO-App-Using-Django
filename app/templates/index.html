@@ -14,8 +14,23 @@
         </form>
       </div>
     </div>
+
     <div class="col">
       <div class="border">
+        
+        {% if todos|length == 0 %} 
+        <div class="p-4">
+          <br>
+          <br>
+          <div class="alert alert-info text-center">
+            <p class="" style="font-size:30px;">No Todos</p>
+          </div>
+          <br>
+          <br>
+        </div>
+       
+      
+        {% else %}
         <div>
           <table class="table">
             <thead>
@@ -24,6 +39,7 @@
                 <th>Title</th>
                 <th>Status</th>
                 <th>Priority</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -33,11 +49,17 @@
                 <td>{{ todo.title }}</td>
                 <td>{{ todo.status }}</td>
                 <td>{{ todo.priority }}</td>
+                <td>
+                  <a href="/delete-todo/{{ todo.id }}" class="btn btn-danger"
+                    >delete</a
+                  >
+                </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>

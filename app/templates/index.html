@@ -39,7 +39,7 @@
                 <th>Title</th>
                 <th>Status</th>
                 <th>Priority</th>
-                <th>Delete</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -50,9 +50,15 @@
                 <td>{{ todo.status }}</td>
                 <td>{{ todo.priority }}</td>
                 <td>
-                  <a href="/delete-todo/{{ todo.id }}" class="btn btn-danger"
-                    >delete</a
-                  >
+                  <a href="/delete-todo/{{ todo.id }}" title="Delete" class=""
+                    >🗑️</a>
+                  {% if todo.status == 'P' %}
+                  <a href="/change-todo/{{ todo.id }}/C" title="Mark Completed" class=""
+                    >✅</a>
+                  {% else %}
+                  <a href="/change-todo/{{ todo.id }}/P" title="Mark Pending" class=""
+                    >🕔</a>
+                  {% endif %}
                 </td>
               </tr>
               {% endfor %}

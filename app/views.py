@@ -7,11 +7,13 @@ from .models import TODO
     
 # Create your views here.
 def home(request):
-    form = TODOForm()
-    # Show the submitted todos. Fetch from the database.
-    todos = TODO.objects.all()
-    return render(request, 'index.html', 
-                  context = {"form" : form, "todos" : todos})
+    if request.user.is_authenticated:
+        user = request.user
+        form = TODOForm()
+        # Show the submitted todos. Fetch from the database.
+        todos = TODO.objects.filter(user = user)
+        return render(request, 'index.html', 
+                      context = {"form" : form, "todos" : todos})
 
 
 def loginUser(request):

@@ -1,17 +1,28 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %} {% block content %}
+<br />
+<div class="container pt-4">
+  <div class="row p-0 mt-4">
+    <div class="col-lg-4 mx-auto shadow p-0">
+      <div class="alert alert-info">
+        <h2>Add New Todo</h2>
+      </div>
+      <div class="p-4">
+        <form method="post" action="/add-todo/">
+          {% csrf_token %} {{ form.as_p }}
+          <hr />
+          <input type="submit" value="ADD" class="btn btn-info" />
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div class="border">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quaerat
+        animi maxime doloremque blanditiis obcaecati natus, consectetur eveniet
+        saepe veritatis qui sequi, quibusdam facere similique tempora iure
+        omnis. Dolore, praesentium.
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Home</title>
-{% extends "base.html" %}
-
-{% block content %}
-    <h1>Home Page</h1>
 {% endblock %}
- 

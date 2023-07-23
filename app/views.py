@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login
+from app.forms import TODOForm    
     
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    form = TODOForm()
+    return render(request, 'index.html', 
+                  context = {"form" : form})
 
 
 def loginUser(request):
@@ -15,7 +18,7 @@ def loginUser(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username = username, password = password)
-            print("Authenticated", user)
+            # print("Authenticated", user)
             if user:
                 login(request, user)
                 return redirect('home')
@@ -38,7 +41,7 @@ def signup(request):
         context = { "form": form }
         if form.is_valid():
             user = form.save()
-            print("user:", user)
+            # print("user:", user)
             if user:
                 return redirect('login')
         else:
@@ -49,3 +52,21 @@ def signup(request):
         "form": form,
     }
     return render(request, 'signup.html', context = context)
+
+
+def add_todo(request):
+    if request.user.is_authenticated:
+        user = request.user
+        # print(user)
+        form = TODOForm(request.POST)
+        if form.is_valid():
+            print(form.data)
+            print(form.cleaned_data)
+            todo = form.save(commit = False)
+            todo.user = user
+            todo.save()
+            # print(todo)
+            return redirect("home")
+        else:
+            return render(request, 'index.html', 
+                    context = {"form" : form})

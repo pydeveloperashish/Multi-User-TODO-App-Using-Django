@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime
 # Create your models here.
-class Todo(models.Model):
+class TODO(models.Model):
     status_choices = [
         ('C','COMPLETED'),
         ('P', 'PENDING'),

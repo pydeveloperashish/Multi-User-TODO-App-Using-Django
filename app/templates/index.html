@@ -16,10 +16,28 @@
     </div>
     <div class="col">
       <div class="border">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quaerat
-        animi maxime doloremque blanditiis obcaecati natus, consectetur eveniet
-        saepe veritatis qui sequi, quibusdam facere similique tempora iure
-        omnis. Dolore, praesentium.
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for todo in todos %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ todo.title }}</td>
+                <td>{{ todo.status }}</td>
+                <td>{{ todo.priority }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
